@@ -18,6 +18,7 @@ import FaqList from "../components/Faq/FaqList";
 import Testimonial from "../components/Testimonial/Testimonial";
 
 const Home = () => {
+  window.scrollTo(0, 0);
   return (
     <>
       {/*======= hero section =======*/}

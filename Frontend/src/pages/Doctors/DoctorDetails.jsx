@@ -3,8 +3,10 @@ import doctorImg from "../../assets/images/doctor-img02.png";
 import starIcon from "../../assets/images/Star.png";
 import DoctorAbout from "./DoctorAbout";
 import Feedback from "./Feedback";
+import SidePanel from "./SidePanel";
 
 const DoctorDetails = () => {
+  window.scrollTo(0, 0);
   const [tab, setTab] = useState("about");
 
   return (
@@ -68,7 +70,9 @@ const DoctorDetails = () => {
             </div>
           </div>
 
-          <div></div>
+          <div>
+            <SidePanel />
+          </div>
         </div>
       </div>
     </section>

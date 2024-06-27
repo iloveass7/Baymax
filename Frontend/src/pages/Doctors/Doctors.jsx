@@ -2,6 +2,7 @@ import DoctorCard from "./../../components/Doctors/DoctorCard";
 import { doctors } from "./../../assets/data/doctors";
 
 const Doctors = () => {
+  window.scrollTo(0, 0);
   return (
     <>
       <section className="bg-[#fff9ea]">
