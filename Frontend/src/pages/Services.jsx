@@ -2,6 +2,7 @@ import { services } from "../assets/data/services";
 import ServiceCard from "../components/Services/ServiceCard";
 
 const Services = () => {
+  window.scrollTo(0, 0);
   return (
     <section>
       <div className="container">
