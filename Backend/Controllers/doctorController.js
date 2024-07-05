@@ -21,12 +21,19 @@ export const deleteDoctor = async (req, res) => {
 export const getSingleDoctor = async (req, res) => {
     const id = req.params.id;
     try {
-        const doctor = await Doctor.findById(id,).select("-password");
-        res.status(200).json({ success: true, message: "Doctor found successfully", data: doctor });
+      const doctor = await Doctor.findById(id)
+        .populate('reviews')
+        .select("-password");
+  
+      if (!doctor) {
+        return res.status(404).json({ success: false, message: "No doctor found with that ID." });
+      }
+  
+      res.status(200).json({ success: true, message: "Doctor found successfully", data: doctor });
     } catch (err) {
-        res.status(404).json({ success: false, message: "No doctor found with that ID." });
+      res.status(500).json({ success: false, message: "Failed to retrieve doctor.", error: err.message });
     }
-};
+  };
 export const getallDoctor = async (req, res) => {
     try {
         const { query } = req.query;
