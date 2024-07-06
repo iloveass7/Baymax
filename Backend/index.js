@@ -13,13 +13,6 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-const corsOptions = {
-    origin: 'https://baymax-fawn.vercel.app',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-    preflightContinue: true,
-    optionsSuccessStatus: 204 
-};
 
 mongoose.set('strictQuery', false);
 const connectDB = async () => {
@@ -31,10 +24,16 @@ const connectDB = async () => {
     }
 };
 
-app.use(cors(corsOptions));
+const corsOptions = {
+    origin: 'https://baymax-fawn.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+};
+  
+  app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
-app.options('*', cors(corsOptions)); // preflight requests
 
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
