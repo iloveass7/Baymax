@@ -14,7 +14,8 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 const corsOptions = {
-    origin: 'https://baymax-fawn.vercel.app', 
+    origin: 'https://baymax-fawn.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
     credentials: true 
 };
 
