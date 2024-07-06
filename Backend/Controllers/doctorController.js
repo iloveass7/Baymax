@@ -1,6 +1,7 @@
 import Booking from "../models/BookingSchema.js";
 import Doctor from "../models/DoctorSchema.js";
 
+
 export const updateDoctor = async (req, res) => {
     const id = req.params.id;
     try {
@@ -35,21 +36,29 @@ export const getSingleDoctor = async (req, res) => {
       res.status(500).json({ success: false, message: "Failed to retrieve doctor.", error: err.message });
     }
   };
-export const getallDoctor = async (req, res) => {
+  export const getallDoctor = async (req, res) => {
     try {
         const { query } = req.query;
         let doctors;
+
         if (query) {
-            doctors = await Doctor.find({ isApproved: "approved", $or: [{ name: { $regex: query, $options: "i" }, specialization: { $regex: query, $options: "i" } },], }).select("-password");
-        }else {
-            doctors = await Doctor.find({ }).select("-password");
+            doctors = await Doctor.find({
+                isApproved: "approved",
+                $or: [
+                    { name: { $regex: query, $options: "i" } },
+                    { specialization: { $regex: query, $options: "i" } }
+                ],
+            }).select("-password");
+        } else {
+            doctors = await Doctor.find({}).select("-password");
         }
-        doctors = await Doctor.find({}).select("-password");
+
         res.status(200).json({ success: true, message: "Doctors found successfully", data: doctors });
     } catch (err) {
-        res.status(404).json({ success: false, message: "Not found any doctors1." });
+        res.status(404).json({ success: false, message: "Not found any doctors." });
     }
 };
+
 
 export const getDoctorProfile = async(req,res)=>{
     const doctorId = req.userId;
