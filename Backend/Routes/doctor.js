@@ -9,7 +9,7 @@ router.use('/:doctorId/reviews', reviewRouter);
 
 router.get('/:id', getSingleDoctor);
 router.get('/', getallDoctor);
-router.put('/:id', authenticate, restrict(['doctor']), updateDoctor);
-router.delete('/:id', authenticate, restrict(['doctor']), deleteDoctor);
-router.get('/profile/me', authenticate, restrict(['doctor']), getDoctorProfile);
+router.put('/:id', updateDoctor);
+router.delete('/:id',  deleteDoctor);
+router.get('/profile/me',  getDoctorProfile);
 export default router;
