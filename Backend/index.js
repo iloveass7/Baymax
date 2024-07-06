@@ -14,7 +14,8 @@ const app = express();
 const port = process.env.PORT || 8000;
 
 const corsOptions = {
-    origin: true
+    origin: 'https://baymax-fawn.vercel.app', 
+    credentials: true 
 };
 
 mongoose.set('strictQuery', false);
