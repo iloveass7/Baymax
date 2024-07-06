@@ -8,9 +8,7 @@ const generateToken = user => {
         expiresIn: "69d",
     })
 }
-export const test = (req, res) => {
-    res.json({ message: "Test route is working" });
-}
+
 export const register = async (req, res) => {
     const { email, password, name, role, photo, gender } = req.body;
     try {
