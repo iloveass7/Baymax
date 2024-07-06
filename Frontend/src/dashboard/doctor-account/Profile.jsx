@@ -1,13 +1,13 @@
-import React, { useState,useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useState,useEffect } from "react";
 import { AiOutlineDelete } from "react-icons/ai";
 import uploadImageToCloudinary from "./../../utils/uploadCloudinary";
 import { BASE_URL,token } from "./../../config";
 import { toast } from "react-toastify";
-const Profile = ({doctorData}) => {
+const Profile = ({ doctorData }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        //passowrd:'',
         phone: '',
         bio: '',
         gender: '',
@@ -15,63 +15,58 @@ const Profile = ({doctorData}) => {
         ticketPrice: 0,
         qualifications: [],
         experiences: [],
-        timeSlots:[],
+        timeSlots: [],
         photo: null,
         about: '',
     });
 
     useEffect(() => {
         if (doctorData) {
-          setFormData({
-            name: doctorData.name || '',
-            email: doctorData.email || '',
-            //password: '', // Password should be handled separately and securely
-            phone: doctorData.phone || '',
-            bio: doctorData.bio || '',
-            gender: doctorData.gender || '',
-            specialization: doctorData.specialization || '',
-            ticketPrice: doctorData.ticketPrice || 0,
-            qualifications: doctorData.qualifications || [],
-            experiences: doctorData.experiences || [],
-            timeSlots: doctorData.timeSlots || [],
-            photo: doctorData.photo  || null,
-            about: doctorData.about || '',
-          });
+            setFormData({
+                name: doctorData.name || '',
+                email: doctorData.email || '',
+                phone: doctorData.phone || '',
+                bio: doctorData.bio || '',
+                gender: doctorData.gender || '',
+                specialization: doctorData.specialization || '',
+                ticketPrice: doctorData.ticketPrice || 0,
+                qualifications: doctorData.qualifications || [],
+                experiences: doctorData.experiences || [],
+                timeSlots: doctorData.timeSlots || [],
+                photo: doctorData.photo || null,
+                about: doctorData.about || '',
+            });
         }
-      }, [doctorData]);
- 
+    }, [doctorData]);
+
     const handleInputChange = (e) => {
-        setFormData({...formData, [e.target.name]: e.target.value});
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
-    
+
     const handleFileInputChange = async (event) => {
         const file = event.target.files[0];
-    
         const data = await uploadImageToCloudinary(file);
-    
-        setSelectedFile(data.url);
         setFormData({ ...formData, photo: data.url });
-      };
+    };
 
     const updateProfileHandler = async (e) => {
         e.preventDefault();
         try {
-            const res = await fetch(`${BASE_URL}/doctors/${doctorData._id}`,{
+            const res = await fetch(`${BASE_URL}/doctors/${doctorData._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization : `Bearer ${token}`
+                    Authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(formData)
-            })
+            });
             const result = await res.json();
-            if(!res.ok){
-                throw Error();
+            if (!res.ok) {
+                throw Error(result.message);
             }
-
             toast.success("Profile updated successfully");
-        }catch(err){
-            toast.error(err.message)
+        } catch (err) {
+            toast.error(err.message);
         }
     };
 
@@ -81,7 +76,7 @@ const Profile = ({doctorData}) => {
             [key]: [...prevFormData[key], item]
         }));
     };
-    
+
     const handleResusableInputChangeFunc = (key, index, event) => {
         const { name, value } = event.target;
         setFormData(prevFormData => {
@@ -94,9 +89,13 @@ const Profile = ({doctorData}) => {
             };
         });
     };
-    const deleteItem = (key,index) =>{
-        setFormData(prevFormData => ({ ... prevFormData,[key]: prevFormData[key].filter((_,i)=>i!==index)}))
-    } 
+
+    const deleteItem = (key, index) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [key]: prevFormData[key].filter((_, i) => i !== index)
+        }));
+    };
 
     const addQualification = e => {
         e.preventDefault();
@@ -111,9 +110,10 @@ const Profile = ({doctorData}) => {
     const handleQualificationChange = (index, e) => {
         handleResusableInputChangeFunc("qualifications", index, e);
     };
-    const deleteQualification = (e,index) => {
+
+    const deleteQualification = (e, index) => {
         e.preventDefault();
-        deleteItem('qualifications',index);
+        deleteItem('qualifications', index);
     };
 
     const addExperience = (e) => {
@@ -132,15 +132,9 @@ const Profile = ({doctorData}) => {
 
     const deleteExperience = (index, e) => {
         e.preventDefault();
-        setFormData(prevFormData => {
-            const updatedExperiences = prevFormData.experiences.filter((_, i) => i !== index);
-            return {
-                ...prevFormData,
-                experiences: updatedExperiences
-            };
-        });
+        deleteItem('experiences', index);
     };
-    
+
     const addTimeSlot = (e) => {
         e.preventDefault();
         addItem("timeSlots", {
@@ -153,19 +147,11 @@ const Profile = ({doctorData}) => {
     const handleTimeSlotChange = (index, e) => {
         handleResusableInputChangeFunc("timeSlots", index, e);
     };
-    
+
     const deleteTimeSlot = (index, e) => {
         e.preventDefault();
-        setFormData(prevFormData => {
-            const updatedTimeSlots = prevFormData.timeSlots.filter((_, i) => i !== index);
-            return {
-                ...prevFormData,
-                timeSlots: updatedTimeSlots
-            };
-        });
+        deleteItem('timeSlots', index);
     };
-    
-    
     
 
     return (
