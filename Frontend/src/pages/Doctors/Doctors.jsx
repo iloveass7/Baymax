@@ -11,7 +11,7 @@ const Doctors = () => {
 
   const handleSearch = () => {
     const trimmedQuery = query.trim();
-    setUrl(`${BASE_URL}/api/doctors?query=${trimmedQuery}`);
+    setUrl(`${BASE_URL}/doctors?query=${trimmedQuery}`);
     console.log('handle Search', trimmedQuery);
   };
 
