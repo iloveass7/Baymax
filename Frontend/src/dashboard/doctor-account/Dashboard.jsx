@@ -7,6 +7,7 @@ import userGetProfile from "../../hooks/useFetchData";
 import StarIcon from "../../assets/images/Star.png";
 import DoctorAbout from "../../pages/Doctors/DoctorAbout";
 import Profile from "./Profile";
+import Appointments from "./Appoinments";
 
 const Dashboard = () => {
   const { data, loading, error } = userGetProfile(
@@ -81,7 +82,7 @@ const Dashboard = () => {
                     />
                   </div>
                 )}
-                {tab === "appointments" && <div>Appointments Content</div>}
+                {tab === "appointments" && (<Appointments appointments={data.appointments}/>)}
                 {tab === "settings" && <Profile doctorData={data} />}
               </div>
             </div>
