@@ -26,8 +26,9 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const res = await fetch(`${BASE_URL}/auth/login`, {
+      const res = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "post",
+        credentials: 'include',
         headers: {
           "Content-Type": "application/json",
         },
