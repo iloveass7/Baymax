@@ -27,6 +27,8 @@ const connectDB = async () => {
     }
 };
 
+//console.log(process.env.JWT_SECRET_KEY);
+
 
 app.use(cors(corsOptions));
 app.use(cookieParser());
