@@ -1,21 +1,32 @@
 const uploadImageToCloudinary = async (file) => {
     const uploadData = new FormData();
-    const upload_preset = import.meta.env.VITE_UPLOAD_PRESET;
-    const cloud_name = "dynq25aax";
 
+    
+    const upload_preset = 'doctor-booking-system';
+    const cloud_name = 'dynq25aax';
+
+    
+    console.log('Cloud Name:', cloud_name);
+    console.log('Upload Preset:', upload_preset);
+
+    
     uploadData.append('file', file);
     uploadData.append('upload_preset', upload_preset);
-    uploadData.append('cloud_name', cloud_name);
 
-    const res = await fetch(`https://api.cloudinary.com/v1_1/dynq25aax/image/upload`, {
+    
+    const res = await fetch(`https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`, {
         method: 'POST',
         body: uploadData,
     });
 
+    
     if (!res.ok) {
-        throw new Error('Failed to upload image');
+        const error = await res.json(); 
+        console.error('Cloudinary error:', error);  
+        throw new Error(error.error.message);  
     }
 
+    
     const data = await res.json();
     return data;
 };
