@@ -1,8 +1,31 @@
 import React from "react";
 import convertTime from "../../utils/convertTime";
+import { BASE_URL, token } from "./../../config";
+import { toast } from 'react-toastify';
 
-const SidePanel = ({  ticketPrice, timeSlots }) => {
-  console.log('Received timeSlots in SidePanel:', timeSlots);  // Add logging to check the received prop
+const SidePanel = ({ ticketPrice, timeSlots, doctorId }) => {
+  //console.log('Received timeSlots in SidePanel:', timeSlots); 
+
+  const bookingHandler = async () => { 
+    try {
+      const res = await fetch(`${BASE_URL}/bookings/checkout-session/${doctorId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message + ' PLEASE TRY AGAIN!!');
+      }
+      if (data.session.url) {
+        window.location.href = data.session.url;
+      }
+    } catch (err) {
+      toast.error(err.message, err);
+    }
+  };
 
   return (
     <div className="shadow-panelShadow p-3 lg:p-5 rounded-md">
@@ -32,7 +55,7 @@ const SidePanel = ({  ticketPrice, timeSlots }) => {
         </ul>
       </div>
 
-      <button className="btn px-2 w-full rounded-md">Book Appointment</button>
+      <button onClick={bookingHandler} className="btn px-2 w-full rounded-md">Book Appointment</button>
     </div>
   );
 };
