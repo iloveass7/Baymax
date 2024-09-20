@@ -43,6 +43,7 @@ export const AuthContextProvider = ({ children }) => {
     localStorage.setItem("user", JSON.stringify(state.user));
     localStorage.setItem("token", state.token);
     localStorage.setItem("role", state.role);
+    
   }, [state]);
 
   return (
@@ -51,6 +52,7 @@ export const AuthContextProvider = ({ children }) => {
         user: state.user,
         token: state.token,
         role: state.role,
+        
         dispatch,
       }}
     >

@@ -35,16 +35,18 @@ const Login = () => {
       });
 
       const result = await res.json();
-
+      
       if (!res.ok) {
         throw new Error(result.message);
       }
-
+      
+      localStorage.setItem("refreshtoken", result.refreshtoken);
       dispatch({
         type: "LOGIN_SUCCESS",
         payload: {
           user: result.data,
           token: result.token,
+          
           role: result.role,
         },
       });

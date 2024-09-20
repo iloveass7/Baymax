@@ -9,7 +9,7 @@ import featureImg from "../assets/images/feature-img.png";
 import videoIcon from "../assets/images/video-icon.png";
 import avatarIcon from "../assets/images/avatar-icon.png";
 import faqImg from "../assets/images/faq-img.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import About from "../components/About/About";
 import ServiceList from "../components/Services/ServiceList";
@@ -18,7 +18,13 @@ import FaqList from "../components/Faq/FaqList";
 import Testimonial from "../components/Testimonial/Testimonial";
 
 const Home = () => {
+  const navigate = useNavigate();
   window.scrollTo(0, 0);
+
+  const handleAppointmentClick = () => {
+    navigate("/doctors"); 
+  };
+
   return (
     <>
       {/*======= hero section =======*/}
@@ -37,7 +43,10 @@ const Home = () => {
                   animi cumque laboriosam fugiat magni, natus facilis!
                   Voluptatum voluptatibus delectus neque omnis labore!
                 </p>
-                <button className="btn text-[14px] md:text-[16px]">
+                <button
+                  className="btn text-[14px] md:text-[16px]"
+                  onClick={handleAppointmentClick} 
+                >
                   Request an Appointment
                 </button>
               </div>
