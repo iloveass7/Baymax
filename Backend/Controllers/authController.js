@@ -5,6 +5,11 @@ import bcrypt from "bcryptjs";
 
 const generateToken = user => {
     return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET_KEY, {
+        expiresIn: "15m",
+    })
+}
+const generateRefresh = user => {
+    return jwt.sign({ id: user._id, role: user.role }, process.env.REFRESH_SECRET_KEY, {
         expiresIn: "69d",
     })
 }
@@ -59,18 +64,24 @@ export const login = async (req, res) => {
             return res.status(400).json({ status: false, message: "Invalid password" });
         }
 
-        const token = generateToken(user); 
+        const token = generateToken(user);
+        const refreshtoken = generateRefresh(user);
+        //console.log(refreshtoken);
+
         const { password: userPassword, role, appointments, ...rest } = user._doc; 
 
         res.status(200).json({
             success: true,
             message: "User logged in successfully",
             token,
+            refreshtoken,
             data: { ...rest },
             role
         });
 
     } catch (err) {
+        console.log(err);
         res.status(500).json({ status: false, message: "Error logging in user: " + err.message });
+
     }
 };
