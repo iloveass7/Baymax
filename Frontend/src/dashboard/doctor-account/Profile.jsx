@@ -217,7 +217,6 @@ const Profile = ({ doctorData }) => {
                             <option value="">Select</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
-                            <option value="others">Others</option>
                         </select>
                     </div>
                     <div>
@@ -230,10 +229,11 @@ const Profile = ({ doctorData }) => {
                         >
                             <option value="">Select</option>
                             <option value="Cardiologist">Cardiologist</option>
-                            <option value="Dermatologist">Dermatologist</option>
-                            <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
-                            <option value="Pediatrician">Pediatrician</option>
+                            <option value="Oncologist">Oncologist</option>
+                            <option value="Obstetricians ">Obstetricians </option>
+                            <option value="Neurology">Neurology</option>
                             <option value="Psychiatrist">Psychiatrist</option>
+                            <option value="Plastic-Surgeon">Plastic Surgeon</option>
                             {/* Add more options as needed */}
                         </select>
                     </div>
