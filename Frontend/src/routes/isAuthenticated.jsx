@@ -25,7 +25,7 @@ const isAuthenticated = async () => {
       try {
         const response = await axios.post(
 
-          'https://baymaxbackend.vercel.app/api/auth/refresh',
+          'https://baymax-1.onrender.com/api/auth/refresh',
 
           { refreshToken }
         );
