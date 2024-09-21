@@ -24,7 +24,7 @@ const isAuthenticated = async () => {
     if (!token || !decodedToken ||  decodedToken.exp < currentTime) {
       try {
         const response = await axios.post(
-          'ttps://baymax-1.onrender.com/api/auth/refresh',
+          'https://baymax-1.onrender.com/api/auth/refresh',
           { refreshToken }
         );
 
