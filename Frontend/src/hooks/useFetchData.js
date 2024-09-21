@@ -21,8 +21,9 @@ const useFetchData = (url) => {
 
       if (!res.ok) {
         //throw new Error(result.message + " Failed");
-        localStorage.clear();
-        navigate("/login");
+        //localStorage.clear();
+        //navigate("/login");
+        window.location.reload();
       }
       setData(result.data);
       setLoading(false);
