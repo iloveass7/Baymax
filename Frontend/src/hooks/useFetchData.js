@@ -19,12 +19,12 @@ const useFetchData = (url) => {
 
       const result = await res.json();
 
-      if (!res.ok) {
-        //throw new Error(result.message + " Failed");
-        //localStorage.clear();
-        //navigate("/login");
-        window.location.reload();
-      }
+      // if (!res.ok) {
+      //   //throw new Error(result.message + " Failed");
+      //   //localStorage.clear();
+      //   //navigate("/login");
+      //   window.location.reload();
+      // }
       setData(result.data);
       setLoading(false);
     } catch (err) {
