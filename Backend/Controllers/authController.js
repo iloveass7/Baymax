@@ -85,3 +85,18 @@ export const login = async (req, res) => {
 
     }
 };
+export const refreshToken = async (req, res) => {
+    const { refreshToken } = req.body;
+    if (!refreshToken) return res.status(401).json({ message: 'Access denied' });
+
+    try {
+        const verified = jwt.verify(refreshToken, process.env.REFRESH_SECRET_KEY);
+        const newToken = jwt.sign({ id: verified._id, role: verified.role }, process.env.JWT_SECRET_KEY, { expiresIn: '15m' });
+        res.json({ token: newToken });
+    } catch (err) {
+        console.error('Invalid or expired refresh token:', err);
+        res.status(401).json({ message: 'Invalid or expired refresh token' });
+    }
+
+
+}
