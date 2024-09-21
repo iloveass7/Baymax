@@ -6,9 +6,15 @@ import useGetProfile from "../../hooks/useFetchData";
 import { BASE_URL } from "../../config";
 import Loading from "../../components/Loader/Loading";
 import Error from "../../components/Error/Error";
+import { useNavigate } from "react-router-dom";
 
 const MyAccount = () => {
+<<<<<<< HEAD
+  const { user, token, dispatch } = useContext(authContext);
+=======
+  const navigate = useNavigate();
   const { token, dispatch } = useContext(authContext);
+>>>>>>> 9df1485b3b2f21af563536c1e086bf476f7c97e7
   const [tab, setTab] = useState("bookings");
   const [loadedOnce, setLoadedOnce] = useState(false);
 
@@ -27,8 +33,41 @@ const MyAccount = () => {
   }, [loading, error]);
 
   const handleLogout = () => {
+    navigate('/login');
     dispatch({ type: "LOGOUT" });
   };
+
+  const handleDelete = async () => {
+    console.log('Delete button clicked!');
+    
+    if (!user || !token) {
+        console.error('User or token is missing!');
+        return;
+    }
+
+    try {
+        const userId = user._id;  // Get the user ID from the context
+        
+        const response = await fetch(`https://baymax-1.onrender.com/api/users/${userId}`, { // ekhane localhost er jaigai jaigar link dite hobe https://baymax-1.onrender.com/api
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`, // Use token from context
+            },
+        });
+
+        if (response.ok) {
+            console.log('User deleted successfully');
+            dispatch({ type: 'LOGOUT' });
+            navigate('/');
+        } else {
+            const data = await response.json();
+            console.error('Failed to delete user:', data.message);
+        }
+    } catch (error) {
+        console.error('Error deleting account:', error);
+    }
+};
 
   return (
     <section>
@@ -60,7 +99,7 @@ const MyAccount = () => {
                 <button onClick={handleLogout} className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white">
                   Logout
                 </button>
-                <button className="mt-4 w-full bg-red-600 p-3 text-[16px] leading-7 rounded-md text-white">Delete Account</button>
+                <button onClick={handleDelete} className="mt-4 w-full bg-red-600 p-3 text-[16px] leading-7 rounded-md text-white">Delete Account</button>
               </div>
             </div>
 

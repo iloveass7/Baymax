@@ -36,7 +36,7 @@ const isAuthenticated = async () => {
         return true;
       } catch (error) {
         console.error("Error refreshing token:", error);
-        localStorage.clear(); // Clear localStorage if refresh token fails
+        localStorage.clear(); 
         return false;
       }
     }

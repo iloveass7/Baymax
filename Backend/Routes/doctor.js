@@ -10,6 +10,6 @@ router.use('/:doctorId/reviews', reviewRouter);
 router.get('/:id', getSingleDoctor);
 router.get('/', getallDoctor);
 router.put('/:id', authenticate, restrict(['doctor']), updateDoctor);
-router.delete('/:id', authenticate, restrict(['doctor']), deleteDoctor);
+router.delete('/:id', authenticate, deleteDoctor);
 router.get('/profile/me', authenticate, restrict(['doctor']), getDoctorProfile);
 export default router;
