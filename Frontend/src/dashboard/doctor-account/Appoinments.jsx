@@ -15,7 +15,7 @@ const Appointments = ({ appointments }) => {
                         Payment
                     </th>
                     <th scope="col " className='px-6 py-3'>
-                        Price
+                        Price = 100
                     </th>
                     <th scope="col " className='px-6 py-3'>
                         Booked On

@@ -25,7 +25,7 @@ const isAuthenticated = async () => {
       try {
         const response = await axios.post(
 
-          'https://baymaxbackend.vercel.app/api/auth/refresh',
+          'https://baymax-1.onrender.com/api/auth/refresh',
 
           { refreshToken }
         );
@@ -36,7 +36,7 @@ const isAuthenticated = async () => {
         return true;
       } catch (error) {
         console.error("Error refreshing token:", error);
-        localStorage.clear(); // Clear localStorage if refresh token fails
+        localStorage.clear(); 
         return false;
       }
     }
