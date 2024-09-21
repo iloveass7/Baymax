@@ -24,22 +24,25 @@ export const authenticate = async (req, res, next) => {
     }
 };
 
-export const restrict = roles => async (req, res, next) => {
+// Middleware to restrict access based on roles
+export const restrict = (roles) => async (req, res, next) => {
     const userId = req.userId;
 
-    let user;
+    try {
+        // Attempt to find the user in both the User and Doctor collections
+        const patient = await User.findById(userId);
+        const doctor = await Doctor.findById(userId);
 
-    const patient = await User.findById(userId);
-    const doctor = await Doctor.findById(userId);
+        let user = patient || doctor; // Assign user to patient or doctor if found
 
-    if (patient) {
-        user = patient;
+        // Check if the user exists and has a valid role
+        if (!user || !roles.includes(user.role)) {
+            return res.status(401).json({ success: false, message: 'You are not authorized' });
+        }
+
+        next(); // Allow the request to proceed
+    } catch (err) {
+        console.error('Error finding user:', err.message);
+        return res.status(500).json({ success: false, message: 'Server error' });
     }
-    if (doctor) {
-        user = doctor;
-    }
-    if (!roles.includes(user.role)) {
-        return res.status(401).json({ success: false, message: 'You are not authorized' });
-    }
-    next();
 };
