@@ -2,26 +2,16 @@ import { useEffect, useRef, useContext } from "react";
 import logo from "../../assets/images/logo.png";
 import { NavLink, Link } from "react-router-dom";
 import { BiMenu } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa"; 
 import { authContext } from "../../context/AuthContext";
 
 const navLinks = [
-  {
-    path: "/home",
-    display: "Home",
-  },
-  {
-    path: "/doctors",
-    display: "Find a Doctor",
-  },
-  {
-    path: "/services",
-    display: "Services",
-  },
-  {
-    path: "/contact",
-    display: "Contact",
-  },
+  { path: "/home", display: "Home" },
+  { path: "/doctors", display: "Find a Doctor" },
+  { path: "/services", display: "Services" },
+  { path: "/contact", display: "Contact" },
 ];
+
 const Header = () => {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
@@ -42,7 +32,6 @@ const Header = () => {
 
   useEffect(() => {
     handleStickyHeader();
-
     return () => window.removeEventListener("scroll", handleStickyHeader);
   });
 
@@ -52,9 +41,9 @@ const Header = () => {
     <header className="header flex items-center" ref={headerRef}>
       <div className="container">
         <div className="flex items-center justify-between">
-          {/*==========logo ======*/}
+          {/*==========logo ======*/} 
           <div>
-            <img src={logo} alt="" />
+            <img src={logo} alt="Logo" />
           </div>
 
           {/*========== menu =======*/}
@@ -89,11 +78,15 @@ const Header = () => {
                   }`}
                 >
                   <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
-                    <img
-                      src={user?.photo}
-                      className="w-full rounded-full"
-                      alt=""
-                    />
+                    {user?.photo ? (
+                      <img
+                        src={user.photo}
+                        className="w-full rounded-full"
+                        alt="Profile"
+                      />
+                    ) : (
+                      <FaUserCircle className="w-full h-full text-gray-500" />
+                    )}
                   </figure>
                 </Link>
               </div>
