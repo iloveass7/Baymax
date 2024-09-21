@@ -29,8 +29,8 @@ const MyAccount = () => {
   }, [loading, error]);
 
   const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
     navigate('/login');
+    dispatch({ type: "LOGOUT" });
   };
 
   return (
