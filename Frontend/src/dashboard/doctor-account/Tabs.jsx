@@ -9,7 +9,7 @@ const Tabs = ({ tab, setTab }) => {
 
     const handleLogout = () => {
         dispatch({ type: 'LOGOUT' }); // Example action type for logout
-        navigate('/'); // Redirect to home page after logout
+        navigate('/login'); // Redirect to home page after logout
     };
 
 

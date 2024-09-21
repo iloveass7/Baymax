@@ -42,8 +42,7 @@ const CheckoutSucess = () => {
     <div style={containerStyle}>
       <h1 style={headingStyle}>Checkout Successful!</h1>
       <p style={paragraphStyle}>
-        Your order has been placed. You will receive an email confirmation
-        shortly.
+        Your appointment has been fixed. 
       </p>
       <Link 
         to="/" 

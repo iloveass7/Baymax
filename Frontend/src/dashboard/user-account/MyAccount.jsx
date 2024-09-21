@@ -6,9 +6,15 @@ import useGetProfile from "../../hooks/useFetchData";
 import { BASE_URL } from "../../config";
 import Loading from "../../components/Loader/Loading";
 import Error from "../../components/Error/Error";
+import { useNavigate } from "react-router-dom";
 
 const MyAccount = () => {
+<<<<<<< HEAD
   const { user, token, dispatch } = useContext(authContext);
+=======
+  const navigate = useNavigate();
+  const { token, dispatch } = useContext(authContext);
+>>>>>>> 9df1485b3b2f21af563536c1e086bf476f7c97e7
   const [tab, setTab] = useState("bookings");
   const [loadedOnce, setLoadedOnce] = useState(false);
 
@@ -27,6 +33,7 @@ const MyAccount = () => {
   }, [loading, error]);
 
   const handleLogout = () => {
+    navigate('/login');
     dispatch({ type: "LOGOUT" });
   };
 

@@ -16,6 +16,16 @@ const DoctorDetails = () => {
   const { id } = useParams();
   const { data: doctor, loading, error } = useFetchData(`${BASE_URL}/doctors/${id}`);
 
+  // Refresh page once on load
+  useEffect(() => {
+    const hasRefreshed = sessionStorage.getItem('hasRefreshed');
+    
+    if (!hasRefreshed) {
+      sessionStorage.setItem('hasRefreshed', 'true');
+      window.location.reload();
+    }
+  }, []);
+
   useEffect(() => {
     if (doctor) {
       console.log('Doctor data:', doctor);
